@@ -1,0 +1,2 @@
+# Spareboard
+A small website
