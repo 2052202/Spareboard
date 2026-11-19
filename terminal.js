@@ -4,7 +4,7 @@
   // Define terminal apps that interact with the DOM
 
 
-  input.addEventListener('keydown', (e) => {
+  input.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
       const raw = input.value.trim();
       if (!raw) return;
@@ -15,7 +15,7 @@
       // Parse command and arguments
       const [cmd, ...args] = raw.split(" ");
       if (commands[cmd]) {
-        const result = commands[cmd](args);
+        const result = await commands[cmd](args);
         if (result) output.innerHTML += `<div>${result}</div>`;
       } else {
         output.innerHTML += `<div>Command not found: ${cmd}</div>`;
