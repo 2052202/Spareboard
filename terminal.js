@@ -25,3 +25,7 @@
       document.getElementById('console-window').scrollTop = output.scrollHeight;
     }
   });
+
+document.getElementById("fullScreen").addEventListener("click", (e) => {
+  document.getElementById("screenFrame").requestFullscreen();
+})

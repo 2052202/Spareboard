@@ -1,4 +1,5 @@
 let escURL;
+let fileURL;
 if (localStorage.getItem("escURL") != null) {
   escURL = localStorage.getItem("escURL");
 } else if (localStorage.getItem("escURL") == null) {
@@ -39,7 +40,8 @@ add [addend] [addend]: adds two numbers
 freq [URL]: sends a fetch request to the URL
 execute [Code]: returns the answer (execute 1 + 1: ouput 2)
 load: loads a file [popup]
-launch [type] [file]: launches another program
+launch [file name]: launches another program (learn more at: launch help)
+terminate: terminates the launch
        </pre>
       `;
     },
@@ -79,7 +81,7 @@ launch [type] [file]: launches another program
       }
     },
     esc: (args) => {
-      window.location.replace(escURL);
+      window.replace(escURL)
     },
     // Functional
     debug: (args) => {
@@ -102,8 +104,13 @@ launch [type] [file]: launches another program
       }
     }, 
     execute(args) {
-      const string = args.join(" ") || "return 'hello'";
-      return eval(string);
+      const string = args.join(" ") || "hello";
+      let ans = eval(string);
+      if (ans == null || "") {
+        return "not a valid statement"
+      } else {
+        return ans;
+      }
     }, 
     async load(args) {
       const fileUpload = document.getElementById("fileInput");
@@ -114,9 +121,39 @@ launch [type] [file]: launches another program
 
         fileUpload.click();
       });
-      return "Loaded: " + result.name;
+      if (result != null) {
+        fileURL = URL.createObjectURL(result);
+        return "Loaded: " + result.name;
+      }
+      return "Failed to load"
     },
+    terminate() {
+      document.querySelector("iframe").style.display = "none";
+      document.getElementById("backKey").style.display = "none";
+    }, 
     launch(args) {
-      
+      document.getElementById("backKey").style.display = "flex";
+      const iFrame = document.getElementById("screenFrame");
+      iFrame.style.width = "100%";
+      iFrame.style.height = "100vh";
+      iFrame.style.display = "block";
+      if (URL.canParse(args[0])) {
+        iFrame.src = args[0];
+      } else if (args[0] == "gm-toolkit") {
+       iFrame.src = "./CLI/gm-toolkit.html";
+      } else if (args[0] == "emulator" || args[0] == "pokemon" || args[0] == "emulatorButton") {
+        iFrame.src = "./offline.html"
+      } else if (args[0] == "help") {
+        this.terminate();
+        return `<pre> pokemon || emulator || emulatorButton: emulator that supports GBA
+gm-toolkit: a toolkit for utitility in games 
+url: goes to that url (not unblocked)</pre>`
+      }
+      iFrame.requestFullscreen();
+      return null;
+    },
+    disguise(args) {
+      window.open("./loader.html")
+      window.location.replace(args[0]);
     }
   };
