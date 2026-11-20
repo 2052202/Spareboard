@@ -5,5 +5,5 @@ This will pop-up a list of commands to pick from.
 
 
 Notes: 
-- launch does not work as of this version. 
 - a couple of other minor bugs
+- It still kinda sucks
