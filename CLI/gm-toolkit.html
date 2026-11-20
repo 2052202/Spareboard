@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI</title>
+</head>
+<body style="background-color: #111;">
+    <!-- HTML -->
+<div id="console-window" style="background: #111; color: #0f0; font-family: monospace; padding: 15px; height: 300px; overflow-y: auto; height: auto; width: auto;">
+  <div id="output"><div>Type 'help' to see available commands.</div></div>
+  <div style="display: flex;">
+    <span>&gt;&nbsp;</span>
+    <input id="cmd-input" type="text" style="background: transparent; border: none; color: #0f0; font-family: inherit; outline: none; flex: 1;" autofocus />
+  </div>
+</div>
+<input type="file" id="fileInput" hidden />
+<div  id="backKey" style="display: none; align-items: center; justify-content: center;">
+  <a href="./index.html">
+  <button style="background-color: gray; color:black;">homepage</button>
+  </a>
+  <button style="background-color: gray; color:black" id="fullScreen"> Fullscreen </button>
+</div>
+<iframe style="display: none; background-color: white;" id="screenFrame"  allowfullscreen></iframe>
+    <script src="gm-toolkit.js"></script>
+    <script src="terminal.js"></script>
+</body>
+</html>
